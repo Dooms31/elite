@@ -218,10 +218,10 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
     
     mydata <- mydata %>%
       mutate(draft_eligibility_date = stringr::str_c(draft_year, "09-15", sep = "-")) %>%
-      mutate(age = elite::get_years_difference(birthday, draft_eligibility_date)) %>%
-      select(draft_league, draft_year, pick_number, round, draft_team, name, position, shot_handedness, birth_place, birth_country, birthday, height, weight, age, player_url, name_, position_, player_url_, player_statistics) %>%
-      mutate_at(vars(c(draft_league, draft_year, draft_team, name, position, shot_handedness, birth_place, birth_country, birthday, name_, position_, player_url_, player_url)), as.character) %>%
-      mutate_at(vars(-c(draft_league, draft_year, draft_team, name, position, shot_handedness, birth_place, birth_country, birthday, name_, position_, player_url_, player_url, player_statistics)), as.numeric)
+      mutate(age = elite::get_years_difference(draft_eligibility_date)) %>%
+      select(draft_league, draft_year, pick_number, round, draft_team, name, position, shot_handedness, birth_place, birth_country, height, weight, age, player_url, name_, position_, player_url_, player_statistics) %>%
+      mutate_at(vars(c(draft_league, draft_year, draft_team, name, position, shot_handedness, birth_place, birth_country, name_, position_, player_url_, player_url)), as.character) %>%
+      mutate_at(vars(-c(draft_league, draft_year, draft_team, name, position, shot_handedness, birth_place, birth_country, name_, position_, player_url_, player_url, player_statistics)), as.numeric)
     
   }
   
@@ -230,10 +230,10 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
     mydata <- mydata %>%
       mutate(season_short = as.numeric(stringr::str_split(season, "-", simplify = TRUE, n = 2)[,1]) + 1) %>%
       mutate(draft_eligibility_date = stringr::str_c(as.character(season_short), "09-15", sep = "-")) %>%
-      mutate(age = elite::get_years_difference(birthday, draft_eligibility_date)) %>%
-      select(name, team, league, position, shot_handedness, birth_place, birth_country, birthday, height, weight, season, season_short, age, games_played, goals, assists, points, penalty_minutes, plus_minus, games_played_playoffs, goals_playoffs, assists_playoffs, points_playoffs, penalty_minutes_playoffs, plus_minus_playoffs, player_url, team_url, name_, position_, player_url_, player_statistics) %>%
-      mutate_at(vars(c(name, team, league, position, shot_handedness, birth_place, birth_country, birthday, season, player_url, team_url, name_, position_, player_url_)), as.character) %>%
-      mutate_at(vars(-c(name, team, league, position, shot_handedness, birth_place, birth_country, birthday, season, player_url, team_url, name_, position_, player_url_, player_statistics)), as.numeric)
+      mutate(age = elite::get_years_difference(draft_eligibility_date)) %>%
+      select(name, team, league, position, shot_handedness, birth_place, birth_country, height, weight, season, season_short, age, games_played, goals, assists, points, penalty_minutes, plus_minus, games_played_playoffs, goals_playoffs, assists_playoffs, points_playoffs, penalty_minutes_playoffs, plus_minus_playoffs, player_url, team_url, name_, position_, player_url_, player_statistics) %>%
+      mutate_at(vars(c(name, team, league, position, shot_handedness, birth_place, birth_country, season, player_url, team_url, name_, position_, player_url_)), as.character) %>%
+      mutate_at(vars(-c(name, team, league, position, shot_handedness, birth_place, birth_country, season, player_url, team_url, name_, position_, player_url_, player_statistics)), as.numeric)
     
   }
   
