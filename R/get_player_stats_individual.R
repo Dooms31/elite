@@ -51,7 +51,7 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
     
     if (is.na(player_url)) {
       
-      all_data <- tibble(shot_handedness = NA, birth_place = NA, birth_country = NA, birthday = NA, height = NA, weight = NA, age = NA, name_ = NA, position_ = NA, player_url_ = NA)
+      all_data <- tibble(shot_handedness = NA, birth_place = NA, birth_country = NA, height = NA, weight = NA, age = NA, name_ = NA, position_ = NA, player_url_ = NA)
       
       player_statistics <- NA %>% 
         enframe(name = NULL) %>%
@@ -89,7 +89,7 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
         rvest::html_text() %>%
         magrittr::extract(1:9) %>%
         stringr::str_squish() %>%
-        purrr::set_names("birthday", "age", "birth_place", "birth_country", "youth_team", "position_", "height", "weight", "shot_handedness") %>%
+        purrr::set_names("age", "birth_place", "birth_country", "youth_team", "position_", "height", "weight", "shot_handedness") %>%
         t() %>%
         as.data.frame() %>%
         as_tibble() %>%
@@ -164,7 +164,6 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
           mutate(season_short_ = as.numeric(stringr::str_split(season_, "-", simplify = TRUE, n = 2)[,1]) + 1) %>%
           mutate(birthday = vitals[["birthday"]]) %>%
           mutate(draft_eligibility_date_ = stringr::str_c(as.character(season_short_), "09-15", sep = "-")) %>%
-          mutate(age_ = elite::get_years_difference(birthday, draft_eligibility_date_)) %>%
           mutate_all(stringr::str_squish) %>%
           mutate_all(as.character) %>%      
           mutate_all(~na_if(., "")) %>%
@@ -245,9 +244,9 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
   else {
     
     mydata <- mydata %>%
-      select(name, position = position_, shot_handedness, birth_place, birth_country, birthday, height, weight, player_url, name_, player_url_, player_statistics) %>%
-      mutate_at(vars(c(name, position, shot_handedness, birth_place, birth_country, birthday, player_url, name_, player_url_)), as.character) %>%
-      mutate_at(vars(-c(name, position, shot_handedness, birth_place, birth_country, birthday, player_url, name_, player_url_, player_statistics)), as.numeric)
+      select(name, position = position_, shot_handedness, birth_place, birth_country, height, weight, player_url, name_, player_url_, player_statistics) %>%
+      mutate_at(vars(c(name, position, shot_handedness, birth_place, birth_country, player_url, name_, player_url_)), as.character) %>%
+      mutate_at(vars(-c(name, position, shot_handedness, birth_place, birth_country, player_url, name_, player_url_, player_statistics)), as.numeric)
     
   }
   
