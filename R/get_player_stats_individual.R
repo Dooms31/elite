@@ -93,7 +93,6 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
         t() %>%
         as.data.frame() %>%
         as_tibble() %>%
-        mutate(birthday = lubridate::mdy(birthday, quiet = TRUE)) %>%
         mutate(height = stringr::str_split(height, '"', simplify = TRUE, n = 2)[,1]) %>%
         mutate(feet_tall = stringr::str_split(height, "'", simplify = TRUE, n = 2)[,1]) %>%
         mutate(inches_tall = stringr::str_split(height, "'", simplify = TRUE, n = 2)[,2]) %>%
@@ -124,9 +123,7 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
           mutate(season_ = replace(season_, season_ == "", NA)) %>%
           tidyr::fill(season_) %>%
           mutate(season_short_ = as.numeric(stringr::str_split(season_, "-", simplify = TRUE, n = 2)[,1]) + 1) %>%
-          mutate(birthday = vitals[["birthday"]]) %>%
           mutate(draft_eligibility_date_ = stringr::str_c(as.character(season_short_), "09-15", sep = "-")) %>%
-          mutate(age_ = elite::get_years_difference(birthday, draft_eligibility_date_)) %>%
           mutate_all(stringr::str_squish) %>%
           mutate_all(as.character) %>%      
           mutate_all(~na_if(., "")) %>%
@@ -140,7 +137,7 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
           mutate(points_playoffs_ = NA) %>%
           mutate(penalty_minutes_playoffs_ = NA) %>%
           mutate(plus_minus_playoffs_ = NA) %>%
-          select(-c(blank_, playoffs_, draft_eligibility_date_, birthday)) %>%
+          select(-c(blank_, playoffs_, draft_eligibility_date_)) %>%
           select(team_, league_, captaincy_, season_, season_short_, age_, games_played_, goals_, assists_, points_, penalty_minutes_, plus_minus_, goals_against_average_, save_percentage_, games_played_playoffs_, goals_playoffs_, assists_playoffs_, points_playoffs_, penalty_minutes_playoffs_, plus_minus_playoffs_, goals_against_average_playoffs_, save_percentage_playoffs_) %>% 
           mutate_at(vars(c(team_, league_, captaincy_, season_)), as.character) %>%
           mutate_at(vars(-c(team_, league_, captaincy_, season_)), as.numeric) %>%
@@ -162,7 +159,6 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
           mutate(season_ = replace(season_, season_ == "", NA)) %>%
           tidyr::fill(season_) %>%
           mutate(season_short_ = as.numeric(stringr::str_split(season_, "-", simplify = TRUE, n = 2)[,1]) + 1) %>%
-          mutate(birthday = vitals[["birthday"]]) %>%
           mutate(draft_eligibility_date_ = stringr::str_c(as.character(season_short_), "09-15", sep = "-")) %>%
           mutate_all(stringr::str_squish) %>%
           mutate_all(as.character) %>%      
@@ -171,7 +167,7 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
           mutate(save_percentage_ = NA) %>%
           mutate(goals_against_average_playoffs_ = NA) %>%
           mutate(save_percentage_playoffs_ = NA) %>%
-          select(-c(blank_, playoffs_, draft_eligibility_date_, birthday)) %>%
+          select(-c(blank_, playoffs_, draft_eligibility_date_)) %>%
           select(team_, league_, captaincy_, season_, season_short_, age_, games_played_, goals_, assists_, points_, penalty_minutes_, plus_minus_, goals_against_average_, save_percentage_, games_played_playoffs_, goals_playoffs_, assists_playoffs_, points_playoffs_, penalty_minutes_playoffs_, plus_minus_playoffs_, goals_against_average_playoffs_, save_percentage_playoffs_) %>% 
           mutate_at(vars(c(team_, league_, captaincy_, season_)), as.character) %>%
           mutate_at(vars(-c(team_, league_, captaincy_, season_)), as.numeric) %>%
