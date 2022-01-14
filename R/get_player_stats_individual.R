@@ -51,7 +51,7 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
     
     if (is.na(player_url)) {
       
-      all_data <- tibble(shot_handedness = NA, birth_place = NA, birth_country = NA, birthday = NA, height = NA, weight = NA, age = NA, name_ = NA, position_ = NA, player_url_ = NA)
+      all_data <- tibble(birth_place = NA, birth_country = NA, birthday = NA, height = NA, weight = NA, age = NA, name_ = NA, position_ = NA, player_url_ = NA)
       
       player_statistics <- NA %>% 
         enframe(name = NULL) %>%
