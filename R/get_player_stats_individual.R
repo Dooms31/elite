@@ -195,7 +195,7 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
     
     }
   
-  if (strip_redundancy & !c("season" %in% colnames(mydata))) {
+  else if (strip_redundancy & !c("season" %in% colnames(mydata))) {
     
     mydata <- mydata %>% select(-c(name_, player_url_))
     
