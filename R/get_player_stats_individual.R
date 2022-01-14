@@ -141,7 +141,6 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
           mutate(save_percentage_ = NA) %>%
           mutate(goals_against_average_playoffs_ = NA) %>%
           mutate(save_percentage_playoffs_ = NA) %>%
-          select(-c(blank_, playoffs_, draft_eligibility_date_, birthday)) %>%
           select(team_, league_, captaincy_, season_, games_played_, goals_, assists_, points_, penalty_minutes_, plus_minus_, goals_against_average_, save_percentage_, games_played_playoffs_, goals_playoffs_, assists_playoffs_, points_playoffs_, penalty_minutes_playoffs_, plus_minus_playoffs_, goals_against_average_playoffs_, save_percentage_playoffs_) %>% 
           mutate_at(vars(c(team_, league_, captaincy_, season_)), as.character) %>%
           mutate_at(vars(-c(team_, league_, captaincy_, season_)), as.numeric) %>%
