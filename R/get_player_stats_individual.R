@@ -204,5 +204,3 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
   cat("\n")
   
   return(mydata)
-  
-}
