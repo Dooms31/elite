@@ -89,7 +89,7 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
         rvest::html_text() %>%
         magrittr::extract(1:9) %>%
         stringr::str_squish() %>%
-        purrr::set_names("birthday", "age", "birth_place", "birth_country", "youth_team", "position_", "height", "weight", "shot_handedness") %>%
+        purrr::set_names("birthday", "age", "birth_place", "birth_country", "youth_team", "position_", "height", "weight") %>%
         t() %>%
         as.data.frame() %>%
         as_tibble() %>%
