@@ -126,7 +126,6 @@ get_player_stats_individual <- function(..., progress = TRUE, strip_redundancy =
           mutate(season_short_ = as.numeric(stringr::str_split(season_, "-", simplify = TRUE, n = 2)[,1]) + 1) %>%
           mutate(birthday = vitals[["birthday"]]) %>%
           mutate(draft_eligibility_date_ = stringr::str_c(as.character(season_short_), "09-15", sep = "-")) %>%
-          mutate(age_ = elite::get_years_difference(birthday, draft_eligibility_date_)) %>%
           mutate_all(stringr::str_squish) %>%
           mutate_all(as.character) %>%      
           mutate_all(~na_if(., "")) %>%
